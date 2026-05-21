@@ -269,7 +269,7 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
 
               {/* OG image institucional */}
               <div className="relative min-h-[280px] lg:min-h-0">
-                <Image src={kit.ogImage} alt="VeritasMedi — Suplementos sob protocolo médico"
+                <Image src={kit.ogPreviewImage} alt="VeritasMedi — Suplementos sob protocolo médico"
                   fill sizes="(max-width:1024px) 100vw, 40vw" className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#0B1F12]/80 lg:bg-gradient-to-r" />
               </div>

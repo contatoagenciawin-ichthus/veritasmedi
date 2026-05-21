@@ -29,6 +29,7 @@ export type Kit = {
   sealImage: string;
   cardImage: string;
   ogImage: string;
+  ogPreviewImage: string;
 
   indications: string[];
   ingredients: string[];
@@ -67,6 +68,7 @@ export const kits: Kit[] = [
     productImageWithLeaves: "/kits/sono-profundo/produto-kit.png",
     sealImage: "/kits/sono-profundo/seal.png",
     cardImage: "/kits/sono-profundo/card.webp",
+    ogPreviewImage: "/kits/sono-profundo/og.webp",
     ogImage: "https://kits.veritasmedi.com.br/kits/sono-profundo/og.webp",
 
     indications: [
