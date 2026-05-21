@@ -1,0 +1,68 @@
+{
+  slug: "nome-do-kit",
+  name: "Kit Nome do Kit",
+
+  headline: "",
+  subheadline: "",
+
+  heroHeadline: undefined,
+
+  heroBullets: [
+    "",
+    "",
+    "",
+  ],
+
+  indicationsHeadline: "Esse protocolo foi pensado para quem:",
+
+  heroImage: "/kits/nome-do-kit/hero-bg.jpg",
+  productImage: "/kits/nome-do-kit/product.png",
+  productLeavesImage: "/kits/nome-do-kit/product-leaves.png",
+  productImageWithLeaves: "/kits/nome-do-kit/produto-kit.png",
+  sealImage: "/kits/nome-do-kit/seal.png",
+  cardImage: "/kits/nome-do-kit/card.webp",
+  ogPreviewImage: "/kits/nome-do-kit/og.webp",
+  ogImage: "https://kits.veritasmedi.com.br/kits/nome-do-kit/og.webp",
+
+  indications: [
+    "",
+    "",
+    "",
+    "",
+  ],
+
+  ingredients: [
+    "",
+    "",
+  ],
+
+  ingredientDetails: [
+    {
+      name: "",
+      role: "",
+      detail: "",
+    },
+    {
+      name: "",
+      role: "",
+      detail: "",
+    },
+  ],
+
+  dosage: [
+    "",
+    "",
+  ],
+
+  benefits: [
+    "",
+    "",
+    "",
+    "",
+  ],
+
+  testimonials: undefined,
+
+  whatsappNumber: "5519989734609",
+  checkoutUrl: "https://www.veritasmedi.com.br/",
+},
