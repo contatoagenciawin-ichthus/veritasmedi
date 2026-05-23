@@ -4,7 +4,7 @@
 //   1. HERO           — Dor + promessa + autoridade médica imediata
 //   2. CREDENCIAL     — Quem elaborou e por quê confiar
 //   3. ESPELHO        — Sintomas / identificação do usuário
-//   4. MECANISMO      — Como funciona (sem jargão)
+//   4. MECANISMO      — Como funciona (lido de kit.mechanism)
 //   5. COMPOSIÇÃO     — O que está no kit e por quê cada um
 //   6. PROVA SOCIAL   — Depoimentos (renderiza se kit.testimonials existe)
 //   7. GRATUIDADE + LEAD → WhatsApp direto
@@ -21,15 +21,6 @@
 import Image from "next/image";
 import type { Kit } from "@/lib/kits";
 import { LeadForm } from "@/components/kit/lead-form";
-
-// ─── TOKENS DE COR ────────────────────────────────────────────────────────────
-// Verde floresta  #0B1F12
-// Verde médio     #1A5C35
-// Verde claro     #4CAF78
-// Creme claro     #F5F2EC
-// Creme médio     #EDE9E0
-// Texto           #111814
-// Texto suave     #6B7570
 
 // ─── SVG ICONS ────────────────────────────────────────────────────────────────
 const Ic = {
@@ -137,7 +128,6 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
       ══════════════════════════════════════════ */}
       <section className="relative min-h-[100svh] overflow-hidden bg-[#0B1F12]">
 
-        {/* Foto de fundo */}
         <div className="absolute inset-0">
           <Image src={kit.heroImage} alt={kit.name} fill priority sizes="100vw"
             className="object-cover object-center opacity-45" />
@@ -145,39 +135,31 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
           <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#0B1F12] to-transparent" />
         </div>
 
-        {/* Conteúdo principal */}
         <div className="relative z-10 mx-auto flex min-h-[92svh] max-w-7xl items-center px-6 py-28 lg:px-10">
           <div className="w-full max-w-[620px]">
 
-            {/* Badge de credencial — primeira coisa que o olho lê */}
             <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#4CAF78]/30 bg-[#4CAF78]/10 px-4 py-2 text-xs font-medium text-[#4CAF78] backdrop-blur">
               <Ic.Shield />
               Protocolo elaborado por médico — gratuito para você
             </div>
 
-            {/* Headline — espelha a dor antes de oferecer solução */}
             <h1
               className="text-5xl font-semibold leading-[1.06] tracking-[-0.02em] text-white md:text-6xl lg:text-[4.5rem]"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
             >
-              {kit.heroHeadline ?? (
-                <>Você merece acordar<br />
-                <em className="not-italic text-[#4CAF78]">verdadeiramente descansado.</em></>
-              )}
+              {kit.heroHeadline ?? kit.headline}
             </h1>
 
             <p className="mt-6 max-w-[460px] text-base leading-relaxed text-white/60">
               {kit.subheadline}
             </p>
 
-            {/* Bullets rápidos */}
             <ul className="mt-8 space-y-3">
               {(kit.heroBullets ?? kit.benefits ?? []).slice(0, 3).map((b: string) => (
                 <BulletItem key={b} light>{b}</BulletItem>
               ))}
             </ul>
 
-            {/* CTAs */}
             <div className="mt-10 flex flex-wrap gap-3">
               <a href="#lead"
                 className="inline-flex items-center gap-2.5 rounded-full bg-[#1A5C35] px-8 py-4 text-sm font-medium text-white shadow-lg shadow-[#1A5C35]/30 transition hover:bg-[#0B1F12] hover:shadow-xl active:scale-[0.98]">
@@ -196,33 +178,28 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
           </div>
         </div>
 
-        {/* Produto flutuante — desktop
-            - right-16 garante margem da borda da tela
-            - selo posicionado fora do container do produto (z mais alto, canto superior direito da área) */}
+        {/* Produto — desktop */}
         <div className="pointer-events-none absolute bottom-0 right-16 z-10 hidden w-[38vw] max-w-[520px] lg:block xl:right-24">
-          {/* Selo — fica acima e à direita do produto, sem sobreposição */}
           <div className="absolute -right-10 top-[8%] z-20 h-24 w-24 xl:-right-12 xl:h-32 xl:w-32">
             <Image src={kit.sealImage} alt="Elaborado sob protocolo médico" fill sizes="128px" className="object-contain drop-shadow-lg" />
           </div>
-          {/* Produto */}
           <div className="relative aspect-[4/3]">
             <Image src={kit.productImage} alt={`Produtos do ${kit.name}`} fill sizes="38vw"
               className="object-contain object-bottom drop-shadow-[0_20px_60px_rgba(0,0,0,0.55)]" />
           </div>
         </div>
 
-        {/* Produto mobile — produto centralizado, selo no canto sem sobrepor */}
+        {/* Produto — mobile */}
         <div className="relative z-10 px-6 pb-4 lg:hidden">
           <div className="relative mx-auto aspect-[4/3] w-full max-w-[340px]">
             <Image src={kit.productImage} alt={kit.name} fill className="object-contain drop-shadow-2xl" />
           </div>
-          {/* Selo fora do container do produto, posicionado absolutamente na seção */}
           <div className="absolute bottom-8 right-6 h-20 w-20 sm:h-24 sm:w-24">
             <Image src={kit.sealImage} alt="Elaborado sob protocolo médico" fill className="object-contain" />
           </div>
         </div>
 
-        {/* ─── RÉGUA DE CONFIANÇA (verde escura) ─── */}
+        {/* Régua de confiança */}
         <div className="relative z-10 border-t border-white/8 bg-[#071410]/80 backdrop-blur-md">
           <div className="mx-auto max-w-7xl">
             <div className="grid grid-cols-2 md:grid-cols-4">
@@ -232,21 +209,13 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
                 { num: "03", title: "Sem custo",          sub: "Protocolo gratuito para você"     },
                 { num: "04", title: "Atendimento direto", sub: "Via WhatsApp com o médico"        },
               ].map(({ num, title, sub }, i) => (
-                <div
-                  key={num}
-                  className={`group relative flex flex-col justify-between gap-3 px-7 py-6 ${
-                    i < 3 ? "border-r border-white/8" : ""
-                  }`}
-                >
-                  {/* número refinado — fundo decorativo */}
+                <div key={num}
+                  className={`group relative flex flex-col justify-between gap-3 px-7 py-6 ${i < 3 ? "border-r border-white/8" : ""}`}>
                   <span
                     className="absolute right-5 top-3 select-none text-5xl font-bold leading-none text-white/5"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >{num}</span>
-
-                  {/* linha de acento verde */}
                   <div className="h-[1px] w-6 bg-[#4CAF78]/60 transition-all duration-500 group-hover:w-10" />
-
                   <div>
                     <p className="text-sm font-medium text-white/85">{title}</p>
                     <p className="mt-0.5 text-xs text-white/38">{sub}</p>
@@ -266,15 +235,11 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
           <div className="overflow-hidden rounded-3xl border border-white/8 bg-white/4">
             <div className="grid lg:grid-cols-[1fr_1.5fr]">
-
-              {/* OG image institucional */}
               <div className="relative min-h-[280px] lg:min-h-0">
                 <Image src={kit.ogPreviewImage} alt="VeritasMedi — Suplementos sob protocolo médico"
                   fill sizes="(max-width:1024px) 100vw, 40vw" className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#0B1F12]/80 lg:bg-gradient-to-r" />
               </div>
-
-              {/* Copy de credencial */}
               <div className="p-10 lg:p-14">
                 <Label text="A origem do protocolo" light />
                 <h2
@@ -292,8 +257,6 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
                   O protocolo é disponibilizado gratuitamente porque acreditamos que informação de qualidade
                   é o primeiro passo para uma escolha consciente.
                 </p>
-
-                {/* Números */}
                 <div className="mt-8 grid grid-cols-3 gap-4">
                   {[
                     { n: "10+",      l: "anos de clínica"        },
@@ -337,12 +300,10 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
             {kit.indications.map((item: string, i: number) => (
               <div key={item}
                 className="group relative overflow-hidden rounded-[2rem] bg-[#F5F2EC] p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/6">
-                {/* número decorativo de fundo */}
                 <span
                   className="absolute -right-1 -top-3 select-none text-[6rem] font-bold leading-none text-[#0B1F12]/4"
                   style={{ fontFamily: "'Cormorant Garamond', serif" }}
                 >{i + 1}</span>
-
                 <span className="text-[#1A5C35]">{indicationIcons[i % indicationIcons.length]}</span>
                 <p className="mt-5 text-lg font-medium leading-snug text-[#111814]">{item}</p>
                 <div className="mt-5 h-[2px] w-8 rounded-full bg-[#4CAF78] transition-all duration-300 group-hover:w-14" />
@@ -350,7 +311,6 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
             ))}
           </div>
 
-          {/* CTA intermediário */}
           <div className="mt-14 text-center">
             <a href="#lead"
               className="inline-flex items-center gap-2.5 rounded-full bg-[#1A5C35] px-8 py-4 text-sm font-medium text-white shadow-md transition hover:bg-[#0B1F12] hover:shadow-lg active:scale-[0.98]">
@@ -364,28 +324,30 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
 
 
       {/* ══════════════════════════════════════════
-          4. MECANISMO — Como funciona
+          4. MECANISMO — lido de kit.mechanism
       ══════════════════════════════════════════ */}
       <section className="bg-[#EDE9E0]">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-24 lg:grid-cols-2 lg:items-center lg:px-10">
 
-          {/* Card image */}
+          {/* Card image com legenda dinâmica */}
           <div className="relative overflow-hidden rounded-3xl">
             <div className="relative aspect-square">
-              <Image src={kit.cardImage} alt="Sono de qualidade — vida ativa"
+              <Image src={kit.cardImage} alt={kit.mechanism.cardCaption}
                 fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F12]/65 to-[#0B1F12]/0" />
               <div className="absolute bottom-0 left-0 right-0 p-8">
                 <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#4CAF78]">O resultado esperado</p>
                 <p className="mt-2 text-xl font-semibold leading-snug text-white"
                   style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                  Sono de qualidade à noite.<br />Vida ativa durante o dia.
+                  {kit.mechanism.cardCaption.split("\n").map((line, i, arr) => (
+                    <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+                  ))}
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Copy */}
+          {/* Copy dinâmico */}
           <div>
             <Label text="Como funciona" />
             <h2
@@ -395,32 +357,14 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
               O que acontece no seu corpo — e por que importa.
             </h2>
             <p className="mt-5 text-base leading-8 text-[#6B7570]">
-              O protocolo atua em três frentes simultâneas: regulação do ciclo circadiano,
-              relaxamento muscular e neurológico, e suporte à produção de melatonina endógena.
-              O resultado é um sono que repara — não apenas que adormece.
+              {kit.mechanism.intro}
             </p>
 
             <div className="mt-10 space-y-6">
-              {[
-                {
-                  n: "01",
-                  title: "Regulariza o ciclo do sono",
-                  desc: "Sinaliza ao organismo o momento de descanso com precisão cronobiológica.",
-                },
-                {
-                  n: "02",
-                  title: "Relaxa músculo e mente",
-                  desc: "Reduz a tensão acumulada durante o dia sem causar dependência ou sedação.",
-                },
-                {
-                  n: "03",
-                  title: "Melhora a qualidade — não só a duração",
-                  desc: "Você dorme o que precisa e acorda pronto. Sem arrastar.",
-                },
-              ].map(({ n, title, desc }) => (
+              {kit.mechanism.steps.map(({ n, title, desc }) => (
                 <div key={n} className="flex gap-5">
                   <span
-                    className="flex-shrink-0 text-3xl font-semibold leading-none text-[#4CAF78]/35 mt-0.5"
+                    className="mt-0.5 flex-shrink-0 text-3xl font-semibold leading-none text-[#4CAF78]/35"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >{n}</span>
                   <div>
@@ -442,7 +386,6 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
           <div className="grid gap-14 lg:grid-cols-[1fr_1.3fr] lg:items-start">
 
-            {/* product-leaves — fundo transparente, sem container quadrado */}
             <div className="lg:sticky lg:top-24">
               <div className="relative aspect-square">
                 <Image
@@ -452,7 +395,6 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
                   className="object-contain drop-shadow-[0_16px_48px_rgba(11,31,18,0.18)]"
                 />
               </div>
-              {/* Nota médica */}
               <div className="mt-2 rounded-2xl border border-[#1A5C35]/12 bg-[#EDE9E0] p-6">
                 <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#1A5C35]">Nota do protocolo</p>
                 <p className="mt-2 text-sm leading-relaxed text-[#6B7570]">
@@ -462,7 +404,6 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
               </div>
             </div>
 
-            {/* Ingredientes */}
             <div>
               <Label text="Composição do kit" />
               <h2
@@ -492,7 +433,6 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
                 )}
               </div>
 
-              {/* Posologia */}
               <div className="mt-8 rounded-2xl bg-[#EDE9E0] p-7">
                 <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#1A5C35]">Sugestão de uso</p>
                 <ul className="mt-4 space-y-3">
@@ -511,7 +451,7 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
 
 
       {/* ══════════════════════════════════════════
-          6. PROVA SOCIAL — renderiza só se kit.testimonials existe
+          6. PROVA SOCIAL
       ══════════════════════════════════════════ */}
       {kit.testimonials && kit.testimonials.length > 0 && (
         <section className="bg-[#F5F2EC]">
@@ -523,14 +463,11 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
             >
               Resultados reais, de pessoas reais.
             </h2>
-
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {kit.testimonials.map((t: { name: string; text: string; stars?: number }) => (
                 <div key={t.name} className="relative overflow-hidden rounded-3xl bg-white p-8 shadow-sm">
-                  {/* aspas decorativas */}
                   <span className="absolute -top-1 left-6 text-8xl font-bold leading-none text-[#0B1F12]/5"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}>"</span>
-
                   {t.stars && (
                     <div className="flex gap-0.5 text-[#4CAF78]">
                       {Array.from({ length: t.stars }).map((_, i) => <Ic.Star key={i} />)}
@@ -550,7 +487,6 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
           7. GRATUIDADE + LEAD → WHATSAPP
       ══════════════════════════════════════════ */}
       <section id="lead" className="relative overflow-hidden bg-[#0B1F12]">
-        {/* luz verde ambiente */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-[#4CAF78]/8 blur-3xl" />
           <div className="absolute -bottom-32 right-0 h-96 w-96 rounded-full bg-[#4CAF78]/6 blur-3xl" />
@@ -558,8 +494,6 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 lg:px-10">
           <div className="grid gap-14 lg:grid-cols-[1.15fr_1fr] lg:items-center">
-
-            {/* Copy */}
             <div>
               <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#4CAF78]/30 bg-[#4CAF78]/10 px-4 py-2 text-xs font-medium text-[#4CAF78]">
                 <Ic.Shield />
@@ -571,7 +505,7 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
                 style={{ fontFamily: "'Cormorant Garamond', serif" }}
               >
                 O protocolo não tem preço.<br />
-                <em className="not-italic text-[#4CAF78]">O seu descanso também não.</em>
+                <em className="not-italic text-[#4CAF78]">O seu bem-estar também não.</em>
               </h2>
 
               <p className="mt-6 max-w-md text-base leading-8 text-white/55">
@@ -590,11 +524,8 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
                 ))}
               </ul>
 
-              {/* Reforço de urgência sutil */}
               <div className="mt-10 rounded-2xl border border-white/8 bg-white/5 p-6">
-                <p className="text-sm font-medium text-white/80">
-                  Por que o protocolo é gratuito?
-                </p>
+                <p className="text-sm font-medium text-white/80">Por que o protocolo é gratuito?</p>
                 <p className="mt-2 text-sm leading-relaxed text-white/50">
                   Porque acreditamos que informação de qualidade é o primeiro passo.
                   Quem entende o que está tomando — e por quê — faz escolhas melhores.
@@ -603,14 +534,12 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
               </div>
             </div>
 
-            {/* Formulário dinâmico — valida, envia para /api/lead e redireciona ao WhatsApp */}
             <LeadForm
               kitSlug={kit.slug}
               kitName={kit.name}
               whatsappNumber={kit.whatsappNumber ?? "5519989734609"}
               sealImage={kit.sealImage}
             />
-
           </div>
         </div>
       </section>
@@ -622,9 +551,9 @@ export function KitLandingPage({ kit }: { kit: Kit }) {
       <footer className="bg-white">
         <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-black/5 md:grid-cols-4">
           {[
-            { icon: <Ic.Shield />, label: "Qualidade comprovada" },
-            { icon: <Ic.Leaf />,   label: "Fórmulas seguras" },
-            { icon: <Ic.Flask />,  label: "Tecnologia e inovação" },
+            { icon: <Ic.Shield />, label: "Qualidade comprovada"           },
+            { icon: <Ic.Leaf />,   label: "Fórmulas seguras"               },
+            { icon: <Ic.Flask />,  label: "Tecnologia e inovação"          },
             { icon: <Ic.Shield />, label: "Elaborado sob protocolo médico" },
           ].map(({ icon, label }) => (
             <div key={label} className="flex flex-col items-center gap-2 py-8 text-center">
